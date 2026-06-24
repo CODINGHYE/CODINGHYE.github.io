@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hyeri Yang</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F6F5F1; --ink:#17171B; --muted:#6B6B73; --faint:#9A9AA0;
+  --line:#E3E1D9; --accent:#1F4D7A; --accent-soft:rgba(31,77,122,.09); --slot:#ECEAE2;
+  --serif:"Newsreader", Georgia, "Times New Roman", serif;
+  --mono:"JetBrains Mono", ui-monospace, monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--serif);font-size:16.5px;line-height:1.6;font-weight:400;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline;text-underline-offset:3px}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+.wrap{max-width:900px;margin:0 auto;padding:74px 28px 96px}
+
+.masthead{
+  display:grid;grid-template-columns:1fr auto;gap:34px;align-items:start;
+  padding-bottom:34px;border-bottom:1px solid var(--line);
+}
+.name{font-weight:500;font-size:clamp(40px,7vw,60px);line-height:1.03;letter-spacing:-.02em;margin:0 0 12px}
+.han{font-weight:400;color:var(--faint);font-size:.4em;margin-left:.34em;letter-spacing:0}
+.role{font-size:18px;margin:0 0 2px}
+.affil{font-size:16.5px;color:var(--muted);margin:0}
+.affil a{color:var(--muted);border-bottom:1px solid var(--line)}
+.affil a:hover{color:var(--accent);text-decoration:none;border-color:var(--accent)}
+.links{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px;font-family:var(--mono);font-size:12.5px}
+.links a{color:var(--ink);border:1px solid var(--line);background:#fff;padding:5px 11px;border-radius:999px;transition:border-color .15s,color .15s}
+.links a:hover{text-decoration:none;border-color:var(--accent);color:var(--accent)}
+
+.photo{
+  width:162px;height:198px;border-radius:14px;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+.photo img{width:100%;height:100%;object-fit:cover;display:block}
+.photo .hint{font-family:var(--mono);font-size:10.5px;line-height:1.55}
+.photo .hint b{color:var(--muted);font-weight:500}
+
+section{margin-top:52px}
+.eyebrow{font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--accent);margin:0 0 22px;display:flex;align-items:center;gap:14px}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--line)}
+
+.bio{margin-top:32px}
+.bio p{margin:0;font-size:17px}
+.bio strong{font-weight:600}
+
+.chips{display:flex;flex-wrap:wrap;gap:9px}
+.chip{font-size:14.5px;background:var(--accent-soft);padding:6px 13px;border-radius:7px}
+
+.pub{
+  display:grid;grid-template-columns:256px 1fr;gap:30px;align-items:start;
+  padding:28px 0;border-bottom:1px solid var(--line);
+}
+.pub:first-of-type{padding-top:4px}
+.pub:last-of-type{border-bottom:0;padding-bottom:6px}
+
+.pthumb{
+  display:flex;align-items:center;justify-content:center;flex:none;
+  width:256px;height:150px;padding:8px;
+  background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden;
+}
+.pthumb img{max-width:100%;max-height:100%;width:auto;height:auto;display:block}
+
+.ptitle{font-size:18.5px;font-weight:600;line-height:1.34;margin:0 0 6px;letter-spacing:-.005em}
+.lnk{font-size:14.5px;font-weight:500;color:var(--accent);white-space:nowrap}
+.authors{font-size:15.5px;color:var(--ink);margin:0 0 2px}
+.authors .me{font-weight:600}
+.venue{font-size:15px;color:var(--muted);margin:0}
+.venue em{font-style:italic;color:var(--ink)}
+.venue .note{color:var(--faint)}
+
+.abs{margin-top:12px}
+.abs > summary{
+  list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:7px;
+  font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--accent);
+  padding:3px 0;user-select:none;
+}
+.abs > summary::-webkit-details-marker{display:none}
+.abs > summary .chev{transition:transform .18s ease;font-size:10px}
+.abs[open] > summary .chev{transform:rotate(90deg)}
+.abs > summary:hover{text-decoration:underline;text-underline-offset:3px}
+.abs .body{
+  margin-top:11px;font-size:15px;line-height:1.72;color:#3A3A41;max-width:70ch;
+  padding:3px 2px 3px 18px;border-left:2px solid rgba(31,77,122,.30);
+}
+
+.entry{display:grid;grid-template-columns:84px 1fr}
+.edate{font-family:var(--mono);font-size:13px;color:var(--faint);padding-top:4px}
+.ebody{border-left:1px solid var(--line);padding:0 0 26px 26px}
+.etitle{font-size:17px;font-weight:600;margin:0 0 2px;letter-spacing:-.005em}
+.eplace{font-size:15.5px;color:var(--muted);margin:0 0 7px}
+.ebody ul{margin:7px 0 0;padding-left:18px}
+.ebody li{font-size:15.5px;color:var(--muted);margin:2px 0}
+.emeta{font-family:var(--mono);font-size:12px;color:var(--faint)}
+
+.mini .miniline{font-size:15.5px;color:var(--muted);margin:0 0 6px}
+.mini .miniline b{color:var(--ink);font-weight:600}
+.skillrow{display:flex;flex-wrap:wrap;gap:7px;margin-top:4px}
+.skill{font-family:var(--mono);font-size:12px;color:var(--muted);background:#fff;border:1px solid var(--line);padding:3px 9px;border-radius:5px}
+footer{margin-top:62px;padding-top:22px;border-top:1px solid var(--line);font-size:13px;color:var(--faint);font-family:var(--mono)}
+
+@media (max-width:680px){
+  .wrap{padding:52px 20px 70px}
+  .masthead{grid-template-columns:1fr;gap:22px}
+  .photo{order:-1;width:140px;height:170px}
+  .pub{grid-template-columns:1fr;gap:14px}
+  .pthumb{width:100%;max-width:320px;height:170px}
+  .entry{grid-template-columns:1fr}
+  .edate{padding:0 0 6px}
+  .ebody{border-left:0;border-top:1px solid var(--line);padding:14px 0 0}
+}
+@media (prefers-reduced-motion:reduce){.abs > summary .chev{transition:none}}
+</style>
+</head>
+<body>
+<main class="wrap">
+
+  <header class="masthead">
+    <div class="mast-info">
+      <h1 class="name">Hyeri Yang<span class="han">&#50577;&#54812;&#47532;</span></h1>
+      <p class="role">B.S. in Artificial Intelligence</p>
+      <p class="affil">Machine Intelligence Lab &middot; <a href="https://milab.yongin.ac.kr/team">Yong In University</a>, Yongin, Korea</p>
+      <nav class="links">
+        <a href="mailto:hyeria.yang@gmail.com">Email</a>
+        <a href="#" rel="noopener">Google&nbsp;Scholar</a>
+        <a href="https://github.com/CODINGHYE" target="_blank" rel="noopener">GitHub</a>
+        <a href="#" rel="noopener">CV&nbsp;(PDF)</a>
+        <a href="https://www.linkedin.com/in/hyeri-yang-7151702a0/" target="_blank" rel="noopener">LinkedIn</a>
+      </nav>
+    </div>
+    <div class="photo">
+      <img src="assets/headshot/Hyeri_Yang_Headshot.jpg" alt="Hyeri Yang">
+    </div>
+  </header>
+
+  <section aria-label="About">
+    <div class="bio">
+      <p>I recently completed my B.S. in Artificial Intelligence at Yong In University, where I worked as an undergraduate research assistant at the Machine Intelligence Lab under Prof. <a href="https://milab.yongin.ac.kr/team">Kyungjae Lee</a>. My research centers on <strong>3D Gaussian Splatting</strong> and structured 3D scene representation, with a focus on reconstructing and animating <strong>3D human avatars</strong> that stay robust under challenging, out-of-distribution motion. I&rsquo;m always open to research collaboration &mdash; feel free to reach out.</p>
+    </div>
+  </section>
+
+  <section aria-label="Research interests">
+    <p class="eyebrow">Research Interests</p>
+    <div class="chips">
+      <span class="chip">3D Gaussian Splatting</span>
+      <span class="chip">Structured Scene Representation</span>
+      <span class="chip">3D Scene Reconstruction</span>
+      <span class="chip">3D Human Avatars</span>
+    </div>
+  </section>
+
+  <section aria-label="Publications">
+    <p class="eyebrow">Publications</p>
+
+    <article class="pub">
+      <a class="pthumb" href="https://www.sciencedirect.com/science/article/abs/pii/S0097849326000683">
+        <img src="assets/research/AvatarMoE.JPG" alt="AvatarMoE pipeline overview">
+      </a>
+      <div class="pinfo">
+        <h3 class="ptitle">AvatarMoE: Decomposing Non-rigid Deformation with Part-aware Experts for 3DGS Avatars
+          <a class="lnk" href="https://www.sciencedirect.com/science/article/abs/pii/S0097849326000683">[paper]</a>
+          <a class="lnk" href="https://github.com/milab-yongin/AvatarMoE">[code]</a>
+          <a class="lnk" href="https://codinghye.github.io/AvatarMoE/">[project]</a>
+        </h3>
+        <p class="authors"><span class="me">Hyeri Yang</span>, Junyoung Hong, Shinwoong Kim, and Kyungjae Lee</p>
+        <p class="venue"><em>Computers &amp; Graphics</em> (Jun 2026)</p>
+        <details class="abs">
+          <summary><span class="chev">&#9656;</span> Abstract</summary>
+          <div class="body">While 3D Gaussian Splatting (3DGS) has enabled high-quality, real-time animatable avatars, current methods suffer from a key limitation: they model non-rigid deformations with a single global network, which leads to unnatural artifacts such as tearing and stretching in complex poses. To overcome this, we propose AvatarMoE (part-based Mixture of Experts), a novel framework that decomposes the human body into joint-centric local regions, each governed by a specialized expert network. We introduce three core contributions: (1) a pose-aware Gaussian Mixture Model-based gating network that dynamically allocates expert influence according to the input pose; (2) a memory-efficient hybrid expert architecture with a shared HashGrid encoder and lightweight decoders; and (3) a novel Intra-Expert Coherence Loss that regularizes each expert&rsquo;s deformation field to prevent local inconsistencies. Extensive experiments show that AvatarMoE significantly reduces such artifacts and produces more robust, visually plausible avatars than previous methods, especially for out-of-distribution (OOD) poses &mdash; challenging, unseen articulations structurally distinct from the training data.</div>
+        </details>
+      </div>
+    </article>
+
+    <article class="pub">
+      <div class="pthumb"><img src="assets/research/D2FP.png" alt="D2FP"></div>
+      <div class="pinfo">
+        <h3 class="ptitle">D2FP: Learning Implicit Prior for Human Parsing
+          <a class="lnk" href="https://openaccess.thecvf.com/content/WACV2025/html/Hong_D2FP_Learning_Implicit_Prior_for_Human_Parsing_WACV_2025_paper.html">[paper]</a>
+          <a class="lnk" href="https://github.com/cvlab-yongin/D2FP">[code]</a>
+        </h3>
+        <p class="authors">Junyoung Hong, <span class="me">Hyeri Yang</span>, Ye Ju Kim, Haerim Kim, Shinwoong Kim, Euna Shim, and Kyungjae Lee</p>
+        <p class="venue"><em>IEEE/CVF Winter Conference on Applications of Computer Vision</em> (<em>WACV</em>) (Mar 2025)</p>
+        <details class="abs">
+          <summary><span class="chev">&#9656;</span> Abstract</summary>
+          <div class="body">Human parsing aims to segment human images into finegrained semantic parts. Considering the underlying structure of the human body, state-of-the-art methods typically depend on prior assumptions to represent intrinsic body relationships. However, leveraging the same structural prior knowledge across various scenarios poses challenges in achieving stable prediction and requires additional network design efforts. To address these issues, we introduce a novel method, the Dynamic Dual Transformer for Parsing (D2FP), which dynamically learns the implicit prior structures of the human body. Specifically, we derive input dependent prior features from the learnable semantics of human images, generating prior-embedded object queries accordingly before feeding them into the Transformer decoders. Our model includes three major components to effectively learn prior object queries: a prior extraction module, a prior embedding module, and a multi-scale dual Transformer decoder. Furthermore, a novel prior enhancement strategy is introduced, where the final decoded object queries provide structural clues to enhance initial prior features. Experimental results demonstrate the superiority and effectiveness of the proposed method across two well-known human parsing benchmarks: LIP and CIHP.</div>
+        </details>
+      </div>
+    </article>
+
+    <article class="pub">
+      <div class="pthumb"><img src="assets/research/SSG.png" alt="Selective Style Gaussian"></div>
+      <div class="pinfo">
+        <h3 class="ptitle">Selective Style Gaussian: Enabling Localized Style Transfer in 3D Scenes</h3>
+        <p class="authors"><span class="me">Hyeri Yang</span>, Hyeonbeom Heo, Junyoung Hong, Ye Ju Kim, and Kyungjae Lee</p>
+        <p class="venue"><em>ITC-CSCC</em>, Okinawa (Jul 2024) <span class="note">&middot; Oral</span></p>
+        <details class="abs">
+          <summary><span class="chev">&#9656;</span> Abstract</summary>
+          <div class="body">In recent years, research on 3D reconstruction techniques has intensified, particularly those involving Gaussian Splatting. Leveraging these advancements, various methodologies have been developed to edit 3D scenes. The 3D StyleGaussian model has been recognized as an innovative approach, facilitating rapid style transfers with notable efficacy via 3D Gaussian Splatting. Despite its advantages, the model is limited by a uniform style application across the scene, which restricts editing flexibility and versatility. To overcome this challenge, we introduce the Selective Style Gaussian, a novel method combining mask generation with positional matching. This technique enables targeted style applications, refining the framework and broadening the utility of 3D style transfers. The Selective Style Gaussian is expected to substantially improve the creativity and user experience in 3D editing applications by providing greater control and adaptability.</div>
+        </details>
+      </div>
+    </article>
+
+    <article class="pub">
+      <div class="pthumb"><img src="assets/research/LH-FASv2.png" alt="LH-FAS v2"></div>
+      <div class="pinfo">
+        <h3 class="ptitle">LH-FAS v2: Head Pose Estimation-Based Lightweight Face Anti-Spoofing</h3>
+        <p class="authors">Hyeonbeom Heo, <span class="me">Hyeri Yang</span>, Sunguk Jung, and Kyungjae Lee</p>
+        <p class="venue"><em>J. Korea Institute of Electronic Communication Sciences</em> (KCI) (Jan 2024)</p>
+        <details class="abs">
+          <summary><span class="chev">&#9656;</span> Abstract</summary>
+          <div class="body">Facial recognition technology is widely used in various fields but faces challenges due to its vulnerability to fraudulent activities such as photo spoofing. Extensive research has been conducted to overcome this challenge. Most of them, however, require the use of specialized equipment like multi-modal cameras or operation in high-performance environments. In this paper, we introduce LH-FAS v2 (: Lightweight Head-pose-based Face Anti-Spoofing v2), a system designed to operate on a commercial webcam without any specialized equipment, to address the issue of facial recognition spoofing. LH-FAS v2 utilizes FSA-Net for head pose estimation and ArcFace for facial recognition, effectively assessing changes in head pose and verifying facial identity. We developed the VD4PS dataset, incorporating photo spoofing scenarios to evaluate the model's performance. The experimental results show the model's balanced accuracy and speed, indicating that head pose estimation-based facial anti-spoofing technology can be effectively used to counteract photo spoofing.</div>
+        </details>
+      </div>
+    </article>
+
+    <article class="pub">
+      <div class="pthumb"><img src="assets/research/Go_game.jpg" alt="GO game record"></div>
+      <div class="pinfo">
+        <h3 class="ptitle">A Method for Converting an Image of a GO Game Record to Training Data</h3>
+        <p class="authors"><span class="me">Hyeri Yang</span><sup>&#42;</sup>, Hyeonbeom Heo<sup>&#42;</sup>, Sunguk Jung, Yongwoo Lee, Junyong Hong, Ye Ju Kim, and Kyungjae Lee</p>
+        <p class="venue"><em>ITC-CSCC</em>, Phuket (Jul 2022) <span class="note">&middot; Oral &middot; <sup>&#42;</sup>Equal contribution</span></p>
+        <details class="abs">
+          <summary><span class="chev">&#9656;</span> Abstract</summary>
+          <div class="body">Supervised learning is an approach to training artificial intelligence using a labeled dataset. Since the interest in artificial intelligence is high, preparing training data for supervised learning has an important meaning. In this paper, we propose a feasible algorithm for converting a GO game dataset stored as an image into learnable labeled data. The training data need to have the location and color of GO stones. However, detecting a GO board is difficult because of the area covered by a GO stone. Furthermore, it is hard to know the reference point of the board, so recognizing the locations of the stone is also difficult. To detect a GO board, the proposed method is applied differently depending on whether or not there are GO stones on the board. Additionally, by finding the starting point of the GO board, we can convert the location of the GO stone in the image to training data. </div>
+        </details>
+      </div>
+    </article>
+
+  </section>
+
+  <section aria-label="Research experience">
+    <p class="eyebrow">Research Experience</p>
+    <div class="entry">
+      <div class="edate">2022&ndash;2024</div>
+      <div class="ebody">
+        <p class="etitle">Real&middot;Virtual Environment Analysis Based Adaptive Interaction Technology</p>
+        <p class="eplace">Research Student &middot; Electronics and Telecommunications Research Institute (ETRI)</p>
+        <ul>
+          <li>Built an automated pipeline for real-time 3D avatar generation combining 3DGS and SMPL-X.</li>
+          <li>Resolved environment conflicts using Docker containers.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section aria-label="Education">
+    <p class="eyebrow">Education</p>
+    <div class="entry">
+      <div class="edate">2021&ndash;2026</div>
+      <div class="ebody">
+        <p class="etitle">Yong In University</p>
+        <p class="eplace">B.S. in Artificial Intelligence &middot; Yongin, Korea</p>
+        <p class="emeta">GPA 4.26 / 4.5 &nbsp;&middot;&nbsp; Major GPA 4.24 / 4.5</p>
+      </div>
+    </div>
+    <div class="entry">
+      <div class="edate">2019&ndash;2020</div>
+      <div class="ebody">
+        <p class="etitle">University of International Business and Economics (UIBE)</p>
+        <p class="eplace">Economics coursework &middot; Beijing, China</p>
+        <p class="emeta">Withdrew due to COVID-19</p>
+      </div>
+    </div>
+  </section>
+
+  <section aria-label="Awards and scholarships">
+    <p class="eyebrow">Awards &amp; Scholarships</p>
+    <div class="entry">
+      <div class="edate">2026</div>
+      <div class="ebody"><p class="etitle">Academic Excellence Award</p><p class="eplace">Yong In University</p></div>
+    </div>
+    <div class="entry">
+      <div class="edate">2022</div>
+      <div class="ebody"><p class="etitle">Academic Excellence Scholarship (2022-2)</p><p class="eplace">Yong In University</p></div>
+    </div>
+    <div class="entry">
+      <div class="edate">2022</div>
+      <div class="ebody">
+        <p class="etitle">Top 300 Promising Startups &mdash; Growth Track Finalist &amp; Popularity Award</p>
+        <p class="eplace">Ministry of Education &amp; KoEF &middot; Team Leader (CEO)</p>
+        <p class="emeta">Led service planning and AI feature design for a pet-friendly travel map app.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="mini" aria-label="Additional">
+    <p class="eyebrow">Also</p>
+    <p class="miniline" style="margin-top:18px"><b>Languages</b> &nbsp;English (OPIc AL) &middot; Chinese (Conversational) &middot; Korean (Native)</p>
+    <p class="miniline" style="margin-top:14px"><b>Press</b> &nbsp;<a href="https://news.unn.net/news/articleView.html?idxno=544629">University News Network, vol. 1568 (Apr. 2023)</a> &mdash; feature on the WithMe startup.</p>
+  </section>
+
+  <footer>Last updated 2026 &middot; single self-contained page</footer>
+
+</main>
+</body>
+</html>
